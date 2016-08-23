@@ -4,11 +4,11 @@ Then, insert your configs, see a sample:
 
 ~~~~
 projects:
-  cartolaevolution: &cinezap
+  cinezap: &cinezap
     file_path: "/Users/cajuina/Desktop/cinezap/project.xml"
     android_package: "br.com.cinezap"
     migration_datetime: "2015-10-21'T'14:05:20"
-  cartolaevolution: &stalaura
+  stalaura: &stalaura
     file_path: "/Users/cajuina/Desktop/stalaura/project.xml"
     android_package: "br.com.stalaura"
     migration_datetime: "2015-10-23'T'14:20:30"

@@ -1,20 +1,36 @@
 require "nokogiri"
 require "active_support/inflector" # para usar camelize, singularize e upcase
+require "yaml" # ler documentos YML
 load "table.rb"
 load "column.rb"
 require "./templates/android_app_sqlite_helper_template"
 require "./templates/android_model_template"
 require "./templates/android_dao_template"
 
-# vp_file = "/Users/cajuina/Desktop/cinezap/project.xml"
-# time_now = Time.new(2015, 10, 21, 14, 5, 20, "-03:00") # usado no cinezap
+config = YAML.load_file("config.yml")
 
-# vp_file = "/Users/cajuina/Desktop/stalaura/project.xml"
-# time_now = Time.new(2015, 10, 23, 14, 20, 30, "-03:00") # usado na stalaura
+vp_file = config["config"]["file_path"]
+android_package = config["config"]["android_package"]
+time_now = DateTime.parse(config["config"]["migration_datetime"]).to_time
 
-vp_file = "/Users/cajuina/Desktop/cartolaevolution/project.xml"
-android_package = "br.com.cartolaevolution"
-time_now = Time.new(2016, 06, 21, 10, 1, 1, "-03:00") # usado na stalaura
+def delete_matching_regexp(dir, regex)
+    Dir.entries(dir).each do |name|
+        path = File.join(dir, name)
+        if name =~ regex
+            ftype = File.directory?(path) ? Dir : File
+            begin
+                ftype.delete(path)
+            rescue SystemCallError => e
+                $stderr.puts e.message
+            end
+        end
+    end
+end
+
+delete_matching_regexp("rails", /.rb$/)
+delete_matching_regexp("android", /.java$/)
+
+break + 23
 
 # parseando o arquivo
 doc = File.open(vp_file) { |f| Nokogiri::XML(f) }

@@ -1,6 +1,7 @@
 require "nokogiri"
 require "active_support/inflector" # para usar camelize, singularize e upcase
 require "yaml" # ler documentos YML
+require "fileutils"
 load "table.rb"
 load "column.rb"
 require "./templates/android_app_sqlite_helper_template"
@@ -27,10 +28,13 @@ def delete_matching_regexp(dir, regex)
     end
 end
 
-delete_matching_regexp("rails", /.rb$/)
-delete_matching_regexp("android", /.java$/)
-
-break + 23
+delete_matching_regexp("./rails/controllers", /\.rb$/)
+delete_matching_regexp("./rails/migrate", /\.rb$/)
+delete_matching_regexp("./rails/models", /\.rb$/)
+delete_matching_regexp("./rails/views/pages", /\.erb$/)
+delete_matching_regexp("./android/daos", /\.java$/)
+delete_matching_regexp("./android/models", /\.java$/)
+delete_matching_regexp("./android/utils", /\.java$/)
 
 # parseando o arquivo
 doc = File.open(vp_file) { |f| Nokogiri::XML(f) }

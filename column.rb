@@ -24,6 +24,7 @@ class Column
             when "timestamp" then "datetime"
             when "varchar" then "string"
             when "tinyint" then "boolean"
+            when "boolean" then "boolean"
             when "float" then "float"
             when "text" then "text"
             else "integer"
@@ -36,9 +37,10 @@ class Column
             when "timestamp" then "Date"
             when "varchar" then "String"
             when "tinyint" then "Boolean"
+            when "boolean" then "Boolean"
             when "float" then "Float"
             when "text" then "String"
-            else "Integer"
+            else "Long"
         end
     end
 
@@ -48,6 +50,7 @@ class Column
             when "timestamp" then "DATETIME"
             when "varchar" then "VARCHAR" + ("(#{@data_length})" if @data_length > 0)
             when "tinyint" then "BOOLEAN"
+            when "boolean" then "BOOLEAN"
             when "float" then "FLOAT"
             when "text" then "TEXT"
             else "INTEGER" + ("(#{@data_length})" if @data_length > 0)
@@ -81,6 +84,7 @@ class Column
             when "timestamp" then "AppHelper.convertStringDateToDate(cursor.getString(#{index}))"
             when "varchar" then "cursor.getString(#{index})"
             when "tinyint" then "(cursor.getInt(#{index}) != 0 ? true : false)"
+            when "boolean" then "(cursor.getInt(#{index}) != 0 ? true : false)"
             when "float" then "cursor.getFloat(#{index})"
             when "text" then "cursor.getString(#{index})"
             else "cursor.getInt(#{index})"

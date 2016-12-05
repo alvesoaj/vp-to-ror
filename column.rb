@@ -50,7 +50,7 @@ class Column
             when "tinyint" then "BOOLEAN"
             when "float" then "FLOAT"
             when "text" then "TEXT"
-            else "INTEGER" + ("(#{@data_length})" if @data_length > 0)
+            else "INTEGER" + (@data_length.to_i > 0 ? "(#{@data_length})" : "")
         end
     end
 
